@@ -1,19 +1,67 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('../views/NotFound.vue')
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/common/LoginView.vue')
+  },
+
+  //------------------------- 学生 ------------------------------------------
+  {
+    path: '/student',
+    name: 'studentIndex',
+    component: () => import('../views/student/IndexView.vue'),
+    children: [
+      {
+        path: 'myTest',
+        name: 'myTest',
+        component: () => import('../views/student/MyTest.vue')
+      },
+      {
+        path: 'testDetail',
+        name: 'testDetail',
+        component: () => import('../views/student/TestDetail.vue')
+      }
+    ]
+  },
+    //------------------------- 老师 ------------------------------------------
+  {
+    path: '/teacher',
+    name: 'teacherIndex',
+    component: () => import('../views/teacher/IndexView.vue'),
+    children: [
+      {
+        path: 'createExam',
+        name: 'createExam',
+        component: () => import('../views/teacher/exam/CreateExam.vue')
+      },
+      {
+        path: 'examAnalysis',
+        name: 'examAnalysis',
+        component: () => import('../views/teacher/exam/ExamAnalysis.vue')
+      },
+      {
+        path: 'examManagement',
+        name: 'examManagement',
+        component: () => import('../views/teacher/exam/ExamManagement.vue')
+      },
+      {
+        path: 'createQuestion',
+        name: 'createQuestion',
+        component: () => import('../views/teacher/question/CreateQuestion.vue')
+      },
+      {
+        path: 'questionManagement',
+        name: 'questionManagement',
+        component: () => import('../views/teacher/question/QuestionManagement.vue')
+      }
+    ]
   }
 ]
 
